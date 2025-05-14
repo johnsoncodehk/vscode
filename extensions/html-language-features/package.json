@@ -1,6 +1,6 @@
 {
   "name": "html-language-features",
-  "displayName": "%displayName%",
+  "displayName": "HTML Language Features by VolarJS",
   "description": "%description%",
   "version": "1.0.0",
   "publisher": "vscode",
@@ -17,8 +17,7 @@
   "enabledApiProposals": [
     "extensionsAny"
   ],
-  "main": "./client/out/node/htmlClientMain",
-  "browser": "./client/dist/browser/htmlClientMain",
+  "main": "./client/dist/node/htmlClientMain",
   "capabilities": {
     "virtualWorkspaces": true,
     "untrustedWorkspaces": {
@@ -257,13 +256,11 @@
       }
     ]
   },
-  "dependencies": {
+  "devDependencies": {
+    "@types/node": "22.x",
     "@volar/language-server": "~2.4.0",
     "@volar/vscode": "~2.4.0",
     "@vscode/extension-telemetry": "^0.9.8"
-  },
-  "devDependencies": {
-    "@types/node": "22.x"
   },
   "repository": {
     "type": "git",
