@@ -6,7 +6,7 @@
 import { LanguageServer, LanguageServerProject } from '@volar/language-server';
 import { createUriConverter } from '@volar/language-server/browser';
 import { LanguagePlugin, LanguageService } from '@volar/language-service';
-import * as ts from 'typescript';
+import type * as ts from 'typescript';
 import { URI, Utils } from 'vscode-uri';
 import { JQUERY_PATH } from './javascriptLibs';
 import { createLanguageService } from './languageService';
@@ -21,7 +21,7 @@ export const compilerOptions: ts.CompilerOptions = {
 	experimentalDecorators: false,
 };
 
-export function createHtmlProject(languagePlugins: LanguagePlugin<URI>[]): LanguageServerProject {
+export function createHtmlProject(ts: typeof import('typescript'), languagePlugins: LanguagePlugin<URI>[]): LanguageServerProject {
 	let server: LanguageServer;
 	let languageService: LanguageService | undefined;
 	let projectVersion = '';
@@ -44,6 +44,7 @@ export function createHtmlProject(languagePlugins: LanguagePlugin<URI>[]): Langu
 		async getLanguageService(uri) {
 			if (!languageService) {
 				languageService = createLanguageService(
+					ts,
 					server,
 					languagePlugins,
 					{

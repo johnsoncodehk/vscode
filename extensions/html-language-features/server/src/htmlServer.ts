@@ -9,6 +9,7 @@ import { fetchHTMLDataProviders } from './customData';
 import { htmlLanguagePlugin } from './modes/languagePlugin';
 import { createHtmlProject } from './modes/project';
 import { getLanguageServicePlugins } from './modes/languageServicePlugins';
+import { loadTsdkByPath } from '@volar/language-server/node';
 
 namespace CustomDataChangedNotification {
 	export const type: NotificationType<string[]> = new NotificationType('html/customDataChanged');
@@ -60,6 +61,8 @@ export function startServer(server: LanguageServer, connection: Connection) {
 
 	connection.onInitialize(params => {
 		const initializationOptions = params.initializationOptions as any || {};
+		const tsdk = initializationOptions.tsdk;
+		const ts = loadTsdkByPath(tsdk, params.locale).typescript;
 
 		dataPaths = initializationOptions?.dataPaths || [];
 
@@ -81,8 +84,8 @@ export function startServer(server: LanguageServer, connection: Connection) {
 
 		const initializeResult = server.initialize(
 			params,
-			createHtmlProject([htmlLanguagePlugin]),
-			getLanguageServicePlugins({
+			createHtmlProject(ts, [htmlLanguagePlugin]),
+			getLanguageServicePlugins(ts, {
 				supportedLanguages: initializationOptions?.embeddedLanguages || { css: true, javascript: true },
 				getCustomData: () => fetchHTMLDataProviders(dataPaths, customDataRequestService),
 				onDidChangeCustomData: listener => customDataChangedEmitter.event(listener),
