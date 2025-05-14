@@ -26,17 +26,17 @@ export async function activate(context: ExtensionContext) {
 				commands.executeCommand('workbench.extensions.search', '@builtin html-language-features');
 			}
 		});
+		return;
 	}
-	else {
-		window.showInformationMessage(
-			`The built-in HTML extension has been disabled. If there are any issues, please enable it again.`,
-			'Show HTML Extension'
-		).then(selected => {
-			if (selected) {
-				commands.executeCommand('workbench.extensions.search', '@builtin html-language-features');
-			}
-		});
-	}
+
+	window.showInformationMessage(
+		`The built-in HTML extension has been disabled. If there are any issues, please enable it again.`,
+		'Show HTML Extension'
+	).then(selected => {
+		if (selected) {
+			commands.executeCommand('workbench.extensions.search', '@builtin html-language-features');
+		}
+	});
 
 	const clientPackageJSON = getPackageInfo(context);
 	telemetry = new TelemetryReporter(clientPackageJSON.aiKey);
