@@ -50,7 +50,7 @@ const projectHost: TypeScriptProjectHost = {
 	getProjectVersion: () => currentDocument[1] + ',' + currentDocument[2].version,
 };
 
-export const languageServicePlugins = getLanguageServicePlugins({
+export const languageServicePlugins = getLanguageServicePlugins(ts, {
 	supportedLanguages: { css: true, javascript: true },
 	getCustomData: () => [],
 	onDidChangeCustomData: () => ({ dispose() { } }),

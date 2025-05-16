@@ -22,3 +22,4 @@ server/extension-browser.webpack.config.js
 extension-browser.webpack.config.js
 CONTRIBUTING.md
 cgmanifest.json
+**/*.js.map

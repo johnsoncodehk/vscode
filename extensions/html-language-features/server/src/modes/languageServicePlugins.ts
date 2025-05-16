@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { Disposable, LanguageServiceContext, LanguageServicePlugin, ProviderResult } from '@volar/language-service';
-import * as ts from 'typescript';
 import { create as createCssPlugin } from 'volar-service-css';
 import { create as createHtmlPlugin } from 'volar-service-html';
 import { create as createJsonPlugin } from 'volar-service-json';
@@ -12,7 +11,7 @@ import { create as createTypeScriptPlugins } from 'volar-service-typescript';
 import { isTsDocument } from 'volar-service-typescript/lib/shared';
 import { IHTMLDataProvider, TextDocument, TextEdit } from 'vscode-html-languageservice';
 
-export function getLanguageServicePlugins(options: {
+export function getLanguageServicePlugins(ts: typeof import('typescript'), options: {
 	supportedLanguages: { [languageId: string]: boolean };
 	getCustomData: (context: LanguageServiceContext) => ProviderResult<IHTMLDataProvider[]>;
 	onDidChangeCustomData: (listener: () => void) => Disposable;

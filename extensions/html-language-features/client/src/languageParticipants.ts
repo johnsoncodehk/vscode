@@ -40,7 +40,7 @@ export function getLanguageParticipants(): LanguageParticipants {
 		autoInsert = new Set();
 		autoInsert.add('html');
 
-		for (const extension of extensions.allAcrossExtensionHosts) {
+		for (const extension of extensions.all) {
 			const htmlLanguageParticipants = extension.packageJSON?.contributes?.htmlLanguageParticipants as LanguageParticipantContribution[];
 			if (Array.isArray(htmlLanguageParticipants)) {
 				for (const htmlLanguageParticipant of htmlLanguageParticipants) {

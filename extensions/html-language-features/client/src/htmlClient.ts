@@ -7,7 +7,7 @@
 import {
 	languages, ExtensionContext, Position, TextDocument, Range, CompletionItem, CompletionItemKind, SnippetString, workspace, extensions,
 	Disposable, FormattingOptions, CancellationToken, ProviderResult, TextEdit, CompletionContext, CompletionList, window, commands, l10n,
-	LogOutputChannel, FileSystemProvider
+	LogOutputChannel, FileSystemProvider, env
 } from 'vscode';
 import {
 	LanguageClientOptions, RequestType, DocumentRangeFormattingParams,
@@ -130,7 +130,8 @@ async function startClientWithParticipants(languageParticipants: LanguagePartici
 			embeddedLanguages,
 			handledSchemas: ['file'],
 			provideFormatter: false, // tell the server to not provide formatting capability and ignore the `html.format.enable` setting.
-			customCapabilities: { rangeFormatting: { editLimit: 10000 } }
+			customCapabilities: { rangeFormatting: { editLimit: 10000 } },
+			tsdk: require('path/posix').join(env.appRoot.replace(/\\/g, '/'), 'extensions/node_modules/typescript/lib')
 		},
 		middleware: {
 			// testing the replace / insert mode
