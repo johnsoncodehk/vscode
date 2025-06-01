@@ -7,7 +7,7 @@ import { createLabsInfo, LanguageClientOptions } from '@volar/vscode';
 import { BaseLanguageClient, LanguageClient, ServerOptions, TransportKind } from '@volar/vscode/node';
 import TelemetryReporter from '@vscode/extension-telemetry';
 import * as fs from 'fs';
-import { Disposable, ExtensionContext, l10n } from 'vscode';
+import { commands, Disposable, env, ExtensionContext, extensions, l10n, Uri, window } from 'vscode';
 import { AsyncDisposable, LanguageClientConstructor, startClient } from '../htmlClient';
 
 let telemetry: TelemetryReporter | undefined;
@@ -15,6 +15,33 @@ let client: AsyncDisposable | undefined;
 
 // this method is called when vs code is activated
 export async function activate(context: ExtensionContext) {
+
+	if (extensions.getExtension('vscode.html-language-features')) {
+		window.showInformationMessage(
+			'Disable built-in HTML extension to enable better HTML support. ✨',
+			'Show HTML Extension',
+			'Check Update'
+		).then(selected => {
+			if (selected === 'Show HTML Extension') {
+				commands.executeCommand('workbench.extensions.search', '@builtin html-language-features');
+			} else if (selected === 'Check Update') {
+				env.openExternal(Uri.parse('https://github.com/johnsoncodehk/vscode/pull/1'));
+			}
+		});
+		return;
+	}
+
+	window.showInformationMessage(
+		`The built-in HTML extension has been disabled. If there are any issues, please enable it again.`,
+		'Show HTML Extension',
+		'Check Update'
+	).then(selected => {
+		if (selected === 'Show HTML Extension') {
+			commands.executeCommand('workbench.extensions.search', '@builtin html-language-features');
+		} else if (selected === 'Check Update') {
+			env.openExternal(Uri.parse('https://github.com/johnsoncodehk/vscode/pull/1'));
+		}
+	});
 
 	const clientPackageJSON = getPackageInfo(context);
 	telemetry = new TelemetryReporter(clientPackageJSON.aiKey);

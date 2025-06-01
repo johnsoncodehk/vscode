@@ -20,7 +20,7 @@ export const compilerOptions: ts.CompilerOptions = {
 	experimentalDecorators: false,
 };
 
-export function createHtmlProject(languagePlugins: LanguagePlugin<URI>[]): LanguageServerProject {
+export function createHtmlProject(ts: typeof import('typescript'), languagePlugins: LanguagePlugin<URI>[]): LanguageServerProject {
 	let server: LanguageServer;
 	let languageService: LanguageService | undefined;
 	let tsLocalized: any;
@@ -46,6 +46,7 @@ export function createHtmlProject(languagePlugins: LanguagePlugin<URI>[]): Langu
 
 			if (!languageService) {
 				languageService = createLanguageService(
+					ts,
 					server,
 					languagePlugins,
 					{

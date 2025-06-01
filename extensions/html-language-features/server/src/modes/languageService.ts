@@ -8,10 +8,11 @@ import { SnapshotDocument } from '@volar/language-server/lib/utils/snapshotDocum
 import { createLanguageServiceEnvironment } from '@volar/language-server/browser';
 import { LanguagePlugin, LanguageService, createLanguageService as _createLanguageService, createLanguage, createUriMap } from '@volar/language-service';
 import { TypeScriptProjectHost, createLanguageServiceHost, createSys, resolveFileLanguageId } from '@volar/typescript';
-import * as ts from 'typescript';
 import { URI } from 'vscode-uri';
+import type * as ts from 'typescript';
 
 export function createLanguageService(
+	ts: typeof import('typescript'),
 	server: LanguageServer,
 	languagePlugins: LanguagePlugin<URI>[],
 	projectHost: TypeScriptProjectHost,

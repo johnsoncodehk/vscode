@@ -3,8 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { RequestType, Connection } from 'vscode-languageserver';
-import { FileStat, FileSystem, FileType } from '@volar/language-service';
+import { RequestType, type Connection } from '@volar/language-server';
+import type { FileStat, FileSystem, FileType } from '@volar/language-service';
 
 export namespace FsStatRequest {
 	export const type: RequestType<string, FileStat, any> = new RequestType('fs/stat');
